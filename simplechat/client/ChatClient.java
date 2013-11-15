@@ -84,7 +84,7 @@ public class ChatClient extends AbstractClient
   }
   
   public void connectionException(Exception e){
-	  closeConnection();
+	  quit();
   }
 
   /**
