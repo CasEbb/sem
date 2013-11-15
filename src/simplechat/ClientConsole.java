@@ -4,9 +4,12 @@ package simplechat;
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com
 
-import java.io.*;
-import simplechat.client.*;
-import simplechat.common.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import simplechat.client.ChatClient;
+import simplechat.common.ChatIF;
 
 /**
  * This class constructs the UI for a chat client. It implements the chat

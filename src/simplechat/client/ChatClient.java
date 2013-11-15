@@ -4,9 +4,10 @@
 
 package simplechat.client;
 
-import ocsf.client.*;
-import simplechat.common.*;
-import java.io.*;
+import java.io.IOException;
+
+import ocsf.client.AbstractClient;
+import simplechat.common.ChatIF;
 
 /**
  * This class overrides some of the methods defined in the abstract superclass
