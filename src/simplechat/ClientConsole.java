@@ -95,6 +95,7 @@ public class ClientConsole implements ChatIF {
 	 * 
 	 * @param args
 	 *            [0] The host to connect to.
+	 *            [1] The port to connect to.
 	 */
 	public static void main(String[] args) {
 		String host = "";
@@ -111,6 +112,7 @@ public class ClientConsole implements ChatIF {
 		} catch (ArrayIndexOutOfBoundsException e) {
 			port = DEFAULT_PORT;
 		}
+		
 		ClientConsole chat = new ClientConsole(host, port);
 		chat.accept(); // Wait for console data
 	}
