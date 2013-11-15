@@ -1,5 +1,1 @@
-### Java files
-*.class
-
-### Files with user paths
-make.bat
+/bin
