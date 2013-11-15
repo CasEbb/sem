@@ -48,6 +48,7 @@ public class EchoServer extends AbstractServer {
 	 *            The connection from which the message originated.
 	 */
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
+		// 2.1.1 R3
 		if(!msg.equals("quit")) {
 			System.out.println("Message received: " + msg + " from " + client);
 			this.sendToAllClients(msg);
