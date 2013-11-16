@@ -24,6 +24,11 @@ public class EchoServer extends AbstractServer {
 	 * The default port to listen on.
 	 */
 	final public static int DEFAULT_PORT = 5555;
+	/**
+	 * Message which is received when a client quits 
+	 * properly.
+	 */
+	final public static String QUIT_MESSAGE = "quit";
 
 	// Constructors ****************************************************
 
@@ -49,7 +54,7 @@ public class EchoServer extends AbstractServer {
 	 */
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		// 2.1.1 R3
-		if(!msg.equals("quit")) {
+		if(!msg.equals(QUIT_MESSAGE)) {
 			System.out.println("Message received: " + msg + " from " + client);
 			this.sendToAllClients(msg);
 		} else {

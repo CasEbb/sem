@@ -19,6 +19,13 @@ import simplechat.common.ChatIF;
  * @version July 2000
  */
 public class ChatClient extends AbstractClient {
+	// Class variables *************************************************
+	
+	/**
+	 * Message to be sent when a user wants to quit.
+	 */
+	final public static String QUIT_MESSAGE = "quit";
+	
 	// Instance variables **********************************************
 
 	/**
@@ -73,7 +80,7 @@ public class ChatClient extends AbstractClient {
 			quit();
 		}
 		// 2.1.1 R3
-		if(message.equals("quit")) {
+		if(message.equals(QUIT_MESSAGE)) {
 			clientUI.display("Terminating client.");
 			quit();
 		}
