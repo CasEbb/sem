@@ -21,10 +21,18 @@ import simplechat.common.ChatIF;
 public class ChatClient extends AbstractClient {
 	// Class variables *************************************************
 	
-	/**
-	 * Message to be sent when a user wants to quit.
-	 */
+	/** Message to be sent when a user wants to quit. */
 	final public static String QUIT_MESSAGE = "quit";
+	/** 
+	 * Message which is received from the server, requesting
+	 * the password to connect.
+	 */
+	final public static String PASSWORD_MESSAGE = "?password?";
+	/**
+	 * Message received from the server, requesting preferred
+	 * username.
+	 */
+	final public static String USERNAME_MESSAGE = "?username?";
 	
 	// Instance variables **********************************************
 
@@ -33,6 +41,10 @@ public class ChatClient extends AbstractClient {
 	 * method in the client.
 	 */
 	ChatIF clientUI;
+	/** Password required to connect to the server. */
+	private String password;
+	/** The preferred username. Defaults to "guest{3}[0-9]" */
+	private String username;
 
 	// Constructors ****************************************************
 
@@ -43,14 +55,20 @@ public class ChatClient extends AbstractClient {
 	 *            The server to connect to.
 	 * @param port
 	 *            The port number to connect on.
+	 * @param password
+	 * 			  The password required to connect.
+	 * @param username
+	 * 			  The preferred username. Defaults to "guest{3}[0-9]"
 	 * @param clientUI
 	 *            The interface type variable.
 	 */
 
-	public ChatClient(String host, int port, ChatIF clientUI)
+	public ChatClient(String host, int port, String password, String username, ChatIF clientUI)
 			throws IOException {
 		super(host, port); // Call the superclass constructor
 		this.clientUI = clientUI;
+		this.password = password; // 2.1.1 R1
+		this.username = username; // 2.1.1 R2
 		openConnection();
 	}
 
@@ -63,7 +81,20 @@ public class ChatClient extends AbstractClient {
 	 *            The message from the server.
 	 */
 	public void handleMessageFromServer(Object msg) {
-		clientUI.display(msg.toString());
+		String message = msg.toString();
+		// 2.1.1 R1
+		if(message.equals(PASSWORD_MESSAGE)){
+			try { sendToServer("ww "+password); } 
+			catch (IOException e) { quit(); }
+		}
+		// 2.1.1 R2
+		else if(message.equals(USERNAME_MESSAGE)){
+			try { sendToServer("un "+username); }
+			catch (IOException e) { quit(); }
+		}
+		else{ 
+			clientUI.display(msg.toString());
+		}
 	}
 
 	/**
@@ -81,7 +112,7 @@ public class ChatClient extends AbstractClient {
 		}
 		// 2.1.1 R3
 		if(message.equals(QUIT_MESSAGE)) {
-			clientUI.display("Terminating client.");
+			System.out.println("Terminating client.");
 			quit();
 		}
 	}

@@ -24,16 +24,12 @@ import simplechat.common.ChatIF;
 public class ClientConsole implements ChatIF {
 	// Class variables *************************************************
 
-	/**
-	 * The default port to connect on.
-	 */
+	/** The default port to connect on. */
 	final public static int DEFAULT_PORT = 5555;
 
 	// Instance variables **********************************************
 
-	/**
-	 * The instance of the client that created this ConsoleChat.
-	 */
+	/** The instance of the client that created this ConsoleChat. */
 	ChatClient client;
 
 	// Constructors ****************************************************
@@ -45,10 +41,14 @@ public class ClientConsole implements ChatIF {
 	 *            The host to connect to.
 	 * @param port
 	 *            The port to connect on.
+	 * @param password
+	 * 			  The password required to connect.
+	 * @param username
+	 * 			  The preferred username. Defaults to "guest{3}[0-9]"
 	 */
-	public ClientConsole(String host, int port) {
+	public ClientConsole(String host, int port, String password, String username) {
 		try {
-			client = new ChatClient(host, port, this);
+			client = new ChatClient(host, port, password, username, this);
 		} catch (IOException exception) {
 			System.out.println("Error: Can't setup connection!"
 					+ " Terminating client.");
@@ -89,31 +89,66 @@ public class ClientConsole implements ChatIF {
 	}
 
 	// Class methods ***************************************************
+	
+	/**
+	 * This method provides a way to format the command line arguments
+	 * according to their function, without referring to their position.
+	 * @since 2.1.1 R4
+	 * @param args Arguments provided by commandline.
+	 * @return options
+	 * 					[0] The host to connect to.
+	 * 					[1] The port to connect to.
+	 * 					[2] The password to connect.
+	 * 					[3] The preferred username.
+	 */
+	private static String[] formatCLOptions(String[] args){
+		String[] options = new String[4];
+		options[0] = "localhost";
+		options[1] = ((Integer)DEFAULT_PORT).toString();
+		options[2] = "";
+		options[3] = "guest"+Math.round(Math.random()*1000);
+		for( int i = 0; i < args.length ; i++ ){
+			// check whether next index exists and whether the next
+			// index isn't a key
+			if(i+1 < args.length && args[i+1].indexOf("-") != 0){
+				if(args[i].equals("-h")){ 
+					try{
+						options[0] = args[i+1]; 
+					} catch (ArrayIndexOutOfBoundsException e){ }
+				}
+				else if(args[i].equals("-p")){ 
+					try{
+						options[1] = args[i+1]; 
+					} catch (ArrayIndexOutOfBoundsException e){ }
+				}
+				else if(args[i].equals("-w")){ 
+					try{
+						options[2] = args[i+1]; 
+					} catch (ArrayIndexOutOfBoundsException e){ }
+				}
+				else if(args[i].equals("-u")){ 
+					try{
+						options[3] = args[i+1]; 
+					} catch (ArrayIndexOutOfBoundsException e){ }
+				}
+			}
+		}
+		return options;
+	}
 
 	/**
 	 * This method is responsible for the creation of the Client UI.
 	 * 
 	 * @param args
-	 *            [0] The host to connect to.
-	 *            [1] The port to connect to.
+	 *            -h The host to connect to.
+	 *            -p The port to connect to.
+	 *            -w The password to connect.
+	 *            -u The preferred username.
 	 */
 	public static void main(String[] args) {
-		String host = "";
-		int port = 0; // The port number
-
-		try {
-			host = args[0];
-		} catch (ArrayIndexOutOfBoundsException e) {
-			host = "localhost";
-		}
-		// 1.2.2
-		try {
-			port = Integer.parseInt(args[1]);
-		} catch (ArrayIndexOutOfBoundsException e) {
-			port = DEFAULT_PORT;
-		}
+		String[] options = formatCLOptions(args);
 		
-		ClientConsole chat = new ClientConsole(host, port);
+		ClientConsole chat = new ClientConsole(options[0], Integer.parseInt(options[1]), options[2], options[3]);
 		chat.accept(); // Wait for console data
 	}
 }
