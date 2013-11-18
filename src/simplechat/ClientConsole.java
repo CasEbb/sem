@@ -146,6 +146,19 @@ public class ClientConsole implements ChatIF {
 	 *            -u The preferred username.
 	 */
 	public static void main(String[] args) {
+		// 2.1.1
+		if(args.length >= 1 && args[0].equals("--help")) {
+			System.out.println();
+			System.out.println("SimpleChat client (a SEM project by L.E.F.)");
+			System.out.println();
+			System.out.println("  command line options:");
+			System.out.println("  -h <host>      host to connect to (hostname/ip, default: localhost)");
+			System.out.println("  -p <port>      TCP port on host (default: 5555)");
+			System.out.println("  -w <password>  server password");
+			System.out.println("  -u <username>  preferred chat username (default: guest)");
+			return;
+		}
+		
 		String[] options = formatCLOptions(args);
 		
 		ClientConsole chat = new ClientConsole(options[0], Integer.parseInt(options[1]), options[2], options[3]);
