@@ -26,6 +26,14 @@ public class EchoServer extends AbstractServer {
 	final public static int DEFAULT_PORT = 5555;
 	/** Message which is received when a client quits properly. */
 	final public static String QUIT_MESSAGE = "quit";
+	/** 
+	 * Message to be sent to ask for the password.
+	 */
+	final public static String PASSWORD_MESSAGE = "?password?";
+	/**
+	 * Message to be sent to ask for preferred username.
+	 */
+	final public static String USERNAME_MESSAGE = "?username?";
 	
 	// Instance variables **********************************************
 	/** Password required to connect to the server. */
@@ -62,7 +70,7 @@ public class EchoServer extends AbstractServer {
 			String wachtwoord = message.split(" ")[1];
 			if(wachtwoord.equals(password)){
 				client.setInfo("messageCount", msgCount+1);
-				try{ client.sendToClient("?username?"); }
+				try{ client.sendToClient(USERNAME_MESSAGE); }
 				catch (IOException e){ }
 			} else {
 				try { client.close(); } 
@@ -120,7 +128,7 @@ public class EchoServer extends AbstractServer {
 		try{
 			client.setInfo("messageCount", 0);
 			client.setInfo("username", "s"+Math.round(Math.random()*1000));
-			client.sendToClient("?password?");
+			client.sendToClient(PASSWORD_MESSAGE);
 		} catch (IOException e){ }
 	}
 
