@@ -38,6 +38,7 @@ public class EchoServer extends AbstractServer {
 	// Instance variables **********************************************
 	/** Password required to connect to the server. */
 	private String password;
+	private String motd;
 
 	// Constructors ****************************************************
 
@@ -47,9 +48,10 @@ public class EchoServer extends AbstractServer {
 	 * @param port
 	 *            The port number to connect on.
 	 */
-	public EchoServer(int port, String password) {
+	public EchoServer(int port, String password, String motd) {
 		super(port);
 		this.password = password;
+		this.motd = motd;
 	}
 
 	// Instance methods ************************************************
@@ -129,6 +131,10 @@ public class EchoServer extends AbstractServer {
 			client.setInfo("messageCount", 0);
 			client.setInfo("username", "s"+Math.round(Math.random()*1000));
 			client.sendToClient(PASSWORD_MESSAGE);
+			
+			if(this.motd != null) {
+				client.sendToClient("Server MOTD: " + this.motd);
+			}
 		} catch (IOException e){ }
 	}
 
@@ -158,6 +164,7 @@ public class EchoServer extends AbstractServer {
 	public static void main(String[] args) {
 		int port = 0; // Port to listen on
 		String password = ""; // Password
+		String motd;
 
 		try {
 			port = Integer.parseInt(args[0]); // Get port from command line
@@ -170,8 +177,14 @@ public class EchoServer extends AbstractServer {
 		} catch (Throwable t) {
 			password = ""; // Set password to ""
 		}
+		// 2.1.1 R6
+		try {
+			motd = args[2];
+		} catch (Throwable t) {
+			motd = null;
+		}
 
-		EchoServer sv = new EchoServer(port, password);
+		EchoServer sv = new EchoServer(port, password, motd);
 
 		try {
 			sv.listen(); // Start listening for connections
