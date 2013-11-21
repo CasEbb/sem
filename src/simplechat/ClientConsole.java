@@ -156,7 +156,7 @@ public class ClientConsole implements ChatIF {
 			System.out.println("  -p <port>      TCP port on host (default: 5555)");
 			System.out.println("  -w <password>  server password");
 			System.out.println("  -u <username>  preferred chat username (default: guest)");
-			return;
+			System.exit(0);
 		}
 		
 		String[] options = formatCLOptions(args);
