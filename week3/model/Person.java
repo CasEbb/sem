@@ -10,7 +10,19 @@ public abstract class Person {
 	private String zipcode;
 	private String country;
 	private String passport;
-	
+
+    public Person(){
+        this.person_id  = 0;
+        this.initials   = "";
+        this.last_name  = "";
+        this.gender     = 'N';
+        this.address    = "";
+        this.house_number   = 0;
+        this.zipcode    = "";
+        this.country    = "";
+        this.passport   = "";
+    }
+
 	public Person(int person_id, String initials, String last_name, char gender, 
 			String address, int house_number, String zipcode, String country,
 			String passport){

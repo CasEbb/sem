@@ -11,6 +11,8 @@ public class Flight {
 	private Location arrival_location;
 	
 	private Airplane airplane;
+
+    private Booking[] bookings;
 	
 	public Flight(int flight_id, Date departure_time, Date arrival_time,
 					Location departure_location, Location arrival_location,
@@ -23,5 +25,15 @@ public class Flight {
 		this.arrival_location = arrival_location;
 		
 		this.airplane = airplane;
+
 	}
+
+    public Airplane getAirplane(){
+        return airplane;
+    }
+
+    public boolean addBooking(Person p, Seat s){
+        return false;
+    }
+
 }

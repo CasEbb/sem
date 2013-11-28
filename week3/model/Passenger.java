@@ -9,4 +9,8 @@ public class Passenger extends Person {
 				zipcode, country, passport);
 	}
 
+    /*public Booking createBooking (int booking_id, Flight flight, Seat seat){
+        if (Flight.)
+    }*/
+
 }
