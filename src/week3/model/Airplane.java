@@ -1,25 +1,28 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Airplane {
 	private int airplane_id;
 	private String model;
 	
-	private Seat[] seats;
+	private List<Seat> seats;
 	
 	public Airplane(int airplane_id, String model, int seats){
 		this.airplane_id = airplane_id;
 		this.model = model;
 		
-		for( int i = 0; i < seats ; i++){
-            this.seats[i] = new Seat(i);
-        }
+	    this.seats = new ArrayList<Seat>();
 	}
 
-    public Seat getSeat(int id){
-        return seats[id];
+    public Airplane(){
+        this.airplane_id = 0;
+        this.model = "";
+
     }
 
-    public int getSeatAmount(){
-        return seats.length;
-    }
+    public Seat getSeat(int id){ return seats.get(id); }
+
+    public int getSeatAmount(){ return seats.size(); }
 }

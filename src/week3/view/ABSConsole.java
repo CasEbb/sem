@@ -12,18 +12,28 @@ public class ABSConsole {
 	}
 
     /**
-     * This method waits for input from the console. Once it is received, it
-     * sends it to the client's message handler.
+     * This method waits for input from the console.
      */
     public void accept() {
         try {
             BufferedReader fromConsole = new BufferedReader(
                     new InputStreamReader(System.in));
             String message;
-
-            while (true) {
+            boolean doorgaan = true;
+            while (doorgaan) {
                 message = fromConsole.readLine();
-                abs.getMessageFromClient(message);
+                if(message.contains("book")){
+                    String[] params = message.split(" ");
+                    abs.book(Integer.parseInt(params[1]), Integer.parseInt(params[2]));
+                }
+                if(message.contains("isBooked")){
+                    String[] params = message.split(" ");
+                    boolean isBooked = abs.isBooked(Integer.parseInt(params[1]), Integer.parseInt(params[2]));
+                    System.out.format("isBooked: %b", isBooked);
+                }
+                if(message.contains("quit")){
+                    doorgaan = false;
+                }
             }
         } catch (Exception ex) {
             System.out.println("Unexpected error while reading from console!");

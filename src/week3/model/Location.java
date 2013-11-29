@@ -8,4 +8,9 @@ public class Location {
 		this.location_id = location_id;
 		this.name = name;
 	}
+
+    public Location(){
+        this.location_id = 0;
+        this.name = "";
+    }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Passenger extends Person {
 
-    private List<Booking> bookings;
+    private List<Ticket> tickets;
 
 	public Passenger(int person_id, String initials, String last_name,
 			char gender, String address, int house_number, String zipcode,
@@ -13,12 +13,13 @@ public class Passenger extends Person {
 		super(person_id, initials, last_name, gender, address, house_number,
 				zipcode, country, passport);
 
-        bookings = new ArrayList<Booking>();
+        tickets = new ArrayList<Ticket>();
 
 	}
 
-    /*public Booking createBooking (int booking_id, Flight flight, Seat seat){
-        if (Flight.)
-    }*/
+    public Passenger(){
+        super();
+        tickets = new ArrayList<Ticket>();
+    }
 
 }
