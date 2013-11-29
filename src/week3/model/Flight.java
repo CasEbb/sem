@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Flight {
@@ -12,7 +14,7 @@ public class Flight {
 	
 	private Airplane airplane;
 
-    private Booking[] bookings;
+    private List<Booking> bookings;
 	
 	public Flight(int flight_id, Date departure_time, Date arrival_time,
 					Location departure_location, Location arrival_location,
@@ -25,6 +27,8 @@ public class Flight {
 		this.arrival_location = arrival_location;
 		
 		this.airplane = airplane;
+
+        bookings = new ArrayList<Booking>();
 
 	}
 
