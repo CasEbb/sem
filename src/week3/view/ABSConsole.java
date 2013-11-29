@@ -42,6 +42,7 @@ public class ABSConsole {
 	
 	public static void main(String[] args){
 		ABSConsole absc = new ABSConsole();
+
         absc.accept();
 	}
 }

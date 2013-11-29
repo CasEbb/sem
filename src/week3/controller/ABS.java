@@ -39,20 +39,20 @@ public class ABS {
             }
         }
         cFor = true;
-        for(int p = 0; cFor == true && p < flights.size() ; p++) {
+        for(int p = 0; cFor == true && p < passengers.size() ; p++) {
             if(passengers.get(p).getId() == fid){
                 person = passengers.get(p);
                 cFor = false;
             }
         }
         cFor = true;
-        for(int s = 0; cFor == true && s < tickets.size() ; s++){
-            if(!tickets.get(s).getSeat().isTaken()){
-                seat = tickets.get(s).getSeat();
-                tickets.get(s).getSeat().takeSeat();
+        for(int s = 0; cFor == true && s < flight.getAirplane().getSeatAmount() ; s++){
+            if(!flight.getAirplane().getSeat(s).isTaken()){
+                seat = flight.getAirplane().getSeat(s);
+                seat.takeSeat();
             }
         }
-        int tid = Integer.parseInt(String.format("%d %d", fid, pid));
+        int tid = Integer.parseInt(String.format("%d%d", fid, pid));
         tickets.add(new Ticket(tid, person, seat, flight));
 
     }
@@ -67,10 +67,9 @@ public class ABS {
      */
     public boolean isBooked(int fid, int pid){
         boolean found = false;
+        int tid = Integer.parseInt(String.format("%d%d", fid, pid));
         for(int s = 0; found == false && s < tickets.size() ; s++){
-            if(tickets.get(s).getSeat().isTaken()){
-                found = (tickets.get(s).getFlight().getFlightId() == fid && tickets.get(s).getPassenger().getId() == pid);
-            }
+            found = (tid == tickets.get(s).getTicketId());
         }
         return found;
     }
