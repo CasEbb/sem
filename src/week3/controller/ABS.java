@@ -1,8 +1,12 @@
-package controller;
+package week3.controller;
 
-import model.*;
-import view.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import week3.model.Flight;
+import week3.model.Passenger;
+import week3.model.Seat;
+import week3.model.Ticket;
 
 public class ABS {
 

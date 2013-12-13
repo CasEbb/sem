@@ -1,18 +1,12 @@
-package model;
+package week3.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Airplane {
-    // Attributes
-	private int airplane_id;
-	private String model;
-
     // Connections
 	private List<Seat> seats;
     private List<Flight> flights;
-    private Airline airline;
-
     /**
      * Creates an instance of an Airplane.
      * @param airplane_id The id of the Airplane
@@ -20,10 +14,7 @@ public class Airplane {
      * @param seats Amount of Seats in this Airplane
      */
 	public Airplane(int airplane_id, String model, int seats){
-		this.airplane_id = airplane_id;
-		this.model = model;
-		
-	    this.seats = new ArrayList<Seat>();
+		this.seats = new ArrayList<Seat>();
         for(int i = 0; i < seats ; i++){
             this.seats.add(new Seat());
         }
@@ -31,7 +22,11 @@ public class Airplane {
 
     // getters
 
-    /**
+    public Airplane() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
      * Returns the seat with id.
      * @param id The Seat id to be retrieved
      * @return Seat Seat object with seatId id
@@ -45,7 +40,7 @@ public class Airplane {
      * Sets the owner of the Airplane.
      * @param a Airline instance of owner
      */
-    public void setAirline(Airline a){ this.airline = a; }
+    public void setAirline(Airline a){ }
 
     // adds
 

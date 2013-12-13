@@ -1,18 +1,14 @@
-package model;
+package week3.model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Airline {
-    // Attributes
-    private String name;
-
     // Connections
     private List<Employee> employees;
     private List<Flight> flights;
 
     public Airline(String name){
-        this.name = name;
-
         this.employees = new ArrayList<Employee>();
         this.flights = new ArrayList<Flight>();
     }

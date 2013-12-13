@@ -2,7 +2,7 @@
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com
 
-package ocsf.server;
+package week1.ocsf.server;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;
@@ -287,7 +287,7 @@ public abstract class AbstractServer implements Runnable {
 					// the data exchange, then add it to thread group
 
 					synchronized (this) {
-						ConnectionToClient c = new ConnectionToClient(
+						new ConnectionToClient(
 								this.clientThreadGroup, clientSocket, this);
 					}
 				} catch (InterruptedIOException exception) {

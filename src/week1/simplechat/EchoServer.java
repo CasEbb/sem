@@ -1,4 +1,4 @@
-package simplechat;
+package week1.simplechat;
 
 // This file contains material supporting section 3.7 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
@@ -6,8 +6,8 @@ package simplechat;
 
 import java.io.IOException;
 
-import ocsf.server.AbstractServer;
-import ocsf.server.ConnectionToClient;
+import week1.ocsf.server.AbstractServer;
+import week1.ocsf.server.ConnectionToClient;
 
 /**
  * This class overrides some of the methods in the abstract superclass in order

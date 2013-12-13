@@ -1,8 +1,8 @@
+package week1.ocsf.server;
+
 // This file contains material supporting section 6.13 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
-
-package ocsf.server;
 
 /**
  * The <code> AdaptableServer </code> is an adapter class that extends the

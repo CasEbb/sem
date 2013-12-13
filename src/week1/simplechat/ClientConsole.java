@@ -1,4 +1,4 @@
-package simplechat;
+package week1.simplechat;
 
 // This file contains material supporting section 3.7 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
@@ -8,8 +8,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import simplechat.client.ChatClient;
-import simplechat.common.ChatIF;
+import week1.simplechat.client.ChatClient;
+import week1.simplechat.common.ChatIF;
 
 /**
  * This class constructs the UI for a chat client. It implements the chat

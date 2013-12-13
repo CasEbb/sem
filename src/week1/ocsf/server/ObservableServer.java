@@ -2,7 +2,7 @@
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com
 
-package ocsf.server;
+package week1.ocsf.server;
 
 import java.io.IOException;
 import java.util.Observable;

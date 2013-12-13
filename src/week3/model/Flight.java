@@ -1,14 +1,12 @@
-package model;
+package week3.model;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Flight {
     // Attributes
 	private int flight_id;
-	private Date departure_time;
-	private Date arrival_time;
 
     // Connections
 	private Location departure_location;
@@ -21,8 +19,6 @@ public class Flight {
 					Airplane airplane){
 
 		this.flight_id = flight_id;
-		this.departure_time = departure_time;
-		this.arrival_time = arrival_time;
 		
 		this.departure_location = departure_location;
 		this.arrival_location = arrival_location;
@@ -35,8 +31,6 @@ public class Flight {
     public Flight(){
 
         this.flight_id = 0;
-        this.departure_time = new Date();
-        this.arrival_time = new Date();
 
         this.departure_location = new Location();
         this.arrival_location = new Location();

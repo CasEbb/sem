@@ -2,7 +2,7 @@
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
 
-package ocsf.client;
+package week1.ocsf.client;
 
 /**
  * The <code> AdaptableClient </code> is a class that extends the

@@ -1,14 +1,6 @@
-package test;
+package week3.test;
 
-import controller.*;
 
 public class ABSTest {
-    private void bookTest(){
-
-    }
-
-    private void isBookedTest(){
-
-    }
 
 }

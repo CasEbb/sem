@@ -1,4 +1,4 @@
-package model;
+package week3.model;
 
 public class Ticket {
     private int ticket_id;
