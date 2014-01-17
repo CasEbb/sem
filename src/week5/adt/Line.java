@@ -41,12 +41,14 @@ public class Line {
 
 	public Line shift() {
 		Line line = new Line();
-		Word word0 = (Word) words.elementAt(0);
-		for (int i = 1; i < words.size(); i = i + 1) {
-			Word word = (Word) words.elementAt(i);
-			line.add(word);
+		if(words.size() > 0) {
+			Word word0 = (Word) words.elementAt(0);
+			for (int i = 1; i < words.size(); i = i + 1) {
+				Word word = (Word) words.elementAt(i);
+				line.add(word);
+			}
+			line.add(word0);
 		}
-		line.add(word0);
 		return line;
 	}
 
@@ -60,5 +62,13 @@ public class Line {
 			out = out + " " + elements.nextElement();
 		}
 		return out + "\n";
+	}
+	
+	public boolean equals(Object obj) {
+		if(obj.getClass() == Line.class) {
+			return this.toString().equals(obj.toString());
+		}
+		
+		return false;
 	}
 }

@@ -36,12 +36,13 @@ public class Document {
 		int sizeDoc = getLines().size();
 		for (int i = 0; i < sizeDoc; i = i + 1) {
 			Line line = (Line) elements.nextElement();
-			int sizeLine = line.getWords().size();
-			for (int j = 0; j < sizeLine - 1; j = j + 1) {
-				line = line.shift();
-				add(line);
+			if(line != null) {
+				int sizeLine = line.getWords().size();
+				for (int j = 0; j < sizeLine - 1; j = j + 1) {
+					line = line.shift();
+					add(line);
+				}
 			}
-
 		}
 	}
 
