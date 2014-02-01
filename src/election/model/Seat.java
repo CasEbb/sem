@@ -1,6 +1,6 @@
 package election.model;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Seat {
@@ -14,7 +14,7 @@ public class Seat {
 	public Seat(String name, Body body) {
 		this.name = name;
 		this.body = body;
-		this.seatHolders = new LinkedList<Term>();
+		this.seatHolders = new ArrayList<Term>();
 	}
 	
 	public String getName() {

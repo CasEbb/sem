@@ -1,22 +1,35 @@
 package election.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Poll {
 
 	private Integer stationNumber;
 	
-	private Election election;
+	private List<Election> elections;
+
+    private List<Suffrage> suffrages;
 	
-	public Poll(Integer stationNumber, Election election) {
+	public Poll(Integer stationNumber) {
 		this.stationNumber = stationNumber;
-		this.election = election;
+		this.elections = new ArrayList<Election>();
 	}
 	
 	public Integer getStationNumber() {
 		return this.stationNumber;
 	}
 	
-	public Election getElection() {
-		return this.election;
+	public List<Election> getElections() {
+		return this.elections;
 	}
+
+    public List<Suffrage> getSuffrages() {
+        return this.suffrages;
+    }
+
+    public void addElection(Election election) {
+        this.elections.add(election);
+    }
 
 }

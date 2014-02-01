@@ -1,24 +1,24 @@
 package election.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Body {
 
 	private String name;
 	
-	private Set<Seat> seats;
+	private List<Seat> seats;
 	
 	public Body(String name) {
 		this.name = name;
-		this.seats = new HashSet<Seat>();
+		this.seats = new ArrayList<Seat>();
 	}
 	
 	public String getName() {
 		return this.name;
 	}
 	
-	public Set<Seat> getSeats() {
+	public List<Seat> getSeats() {
 		return this.seats;
 	}
 
