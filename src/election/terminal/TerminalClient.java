@@ -1,5 +1,6 @@
 package election.terminal;
 
+import election.model.*;
 import ocsf.client.AbstractClient;
 
 import java.io.IOException;
@@ -14,7 +15,17 @@ public class TerminalClient extends AbstractClient {
     }
 
     @Override
+    protected void connectionEstablished() {
+        try{
+            sendToServer("gps " + tui.getPollID());
+        }
+        catch (IOException e){}
+    }
+
+    @Override
     protected void handleMessageFromServer(Object msg) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        if(msg instanceof Poll) {
+            tui.setPoll((Poll)msg);
+        }
     }
 }

@@ -1,7 +1,6 @@
 package election.terminal;
 
-import election.model.Person;
-import election.model.Suffrage;
+import election.model.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,12 +11,16 @@ public class TerminalTUI {
 
     private Scanner keyboard = new Scanner(System.in);
 
-    private List<Suffrage> suffrages = new ArrayList<Suffrage>();
+    private int pollID;
+    private Poll poll;
 
     private int clientPort = 9667;
     private int serverPort = 9668;
 
-    public TerminalTUI(String host) {
+
+
+    public TerminalTUI(String host, int pollID) {
+        this.pollID = pollID;
         new Thread(new TerminalClient(host, this.clientPort, this));
         new Thread(new TerminalServer(this.serverPort, this));
     }
@@ -48,6 +51,8 @@ public class TerminalTUI {
         try {
             System.out.print("Enter search query   > ");
             String query = keyboard.nextLine();
+
+            List<Suffrage> suffrages = poll.getSuffrages();
 
             for(Suffrage suffrage : suffrages) {
                 if(suffrage.getPerson().getName().equals(query)) {
@@ -101,8 +106,16 @@ public class TerminalTUI {
         }
     }
 
+    protected void setPoll(Poll poll) {
+        this.poll = poll;
+    }
+
+    protected int getPollID() {
+        return this.pollID;
+    }
+
     public static void main(String[] args) {
 
-        new TerminalTUI(args[0]).mainMenu();
+        new TerminalTUI(args[0], Integer.parseInt(args[1])).mainMenu();
     }
 }

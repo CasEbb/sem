@@ -3,6 +3,7 @@ package election.printer;
 import election.model.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -17,15 +18,16 @@ public class PrinterTUI {
     private int pollID;
     private int electionID;
 
-    public PrinterTUI(int pollID, int electionID) {
+    private int clientPort = 9778;
+
+    public PrinterTUI(String host, int pollID, int electionID) {
         this.isActive = false;
-        //this.poll = new Poll();
         this.pollID = pollID;
 
         populate();
         this.election = this.poll.getElection();
 
-        //viewCandidates();
+        new Thread(new PrinterClient(host, this.clientPort, this));
     }
 
     /**
@@ -121,6 +123,8 @@ public class PrinterTUI {
         String address = election.getCandidates().get(candidateID).getPerson().getAddress();
 
         System.out.format("Candidate of choice: [%d] %s, %s", candidateID, name, address);
+
+        deactivate();
     }
 
     /**
@@ -153,13 +157,13 @@ public class PrinterTUI {
         Suffrage su5 = new Suffrage(p5, poll);
         Suffrage su6 = new Suffrage(p6, poll);
 
-        // Body (Name)
-        Body b1 = new Body("Jaarclub");
-
         // Seats (Name, Body)
-        Seat se1 = new Seat("Veurzitter", b1);
-        Seat se2 = new Seat("Secretaris", b1);
-        Seat se3 = new Seat("Penningmeester", b1);
+        Seat se1 = new Seat("Veurzitter");
+        Seat se2 = new Seat("Secretaris");
+        Seat se3 = new Seat("Penningmeester");
+
+        // Body (Name)
+        Body b1 = new Body("Jaarclub", new ArrayList<Seat>());
 
         // Candidates (Election, Person)
         Candidate c1 = new Candidate(e1, p1);
@@ -173,12 +177,11 @@ public class PrinterTUI {
     }
 
     public static void main(String[] args) {
-        int pollID = Integer.parseInt(args[0]);
-        int electionID = Integer.parseInt(args[1]);
+        String host = args[0];
+        int pollID = Integer.parseInt(args[1]);
+        int electionID = Integer.parseInt(args[2]);
 
-        PrinterTUI t = new PrinterTUI(pollID, electionID);
-        //t.populate();
-        t.viewCandidates();
+        new PrinterTUI(host, pollID, electionID);
     }
 
 }
