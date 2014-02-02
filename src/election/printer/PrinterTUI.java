@@ -50,6 +50,8 @@ public class PrinterTUI {
     private void loadCandidates() {
 
     }
+
+
     private void viewCandidates() {
         String candidatesList = "";
         int i = 0;
