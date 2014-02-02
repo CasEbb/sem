@@ -19,16 +19,11 @@ public class PrinterTUI {
 
     public PrinterTUI(int pollID, int electionID) {
         this.isActive = false;
+        //this.poll = new Poll();
         this.pollID = pollID;
 
         populate();
-
-        for(int i = 0; i < this.poll.getElections().size(); i++) {
-            if(this.poll.getElections().get(i).getElectionID() == electionID) {
-                this.election = this.poll.getElections().get(i);
-                break;
-            }
-        }
+        this.election = this.poll.getElection();
 
         //viewCandidates();
     }
@@ -133,16 +128,14 @@ public class PrinterTUI {
      */
     private void populate() {
 
-        // Initialize the Poll (ID)
-        poll = new Poll(5);
-
-        // Create dates for elections
+        // New Date for Election
         Date d1 = new Date(2014, 01, 01);
-        Date d2 = new Date(2014, 01, 02);
 
-        // Create elections (ID, Date)
+        // Create Election (ID, Date)
         Election e1 = new Election(500, d1);
-        Election e2 = new Election(501, d2);
+
+        // Instantiate Poll (ID, Election)
+        poll = new Poll(5, e1);
 
         // Create persons (Name, Address)
         Person p1 = new Person("Cas", "Deurningerstraat");
@@ -172,17 +165,11 @@ public class PrinterTUI {
         Candidate c1 = new Candidate(e1, p1);
         Candidate c2 = new Candidate(e1, p2);
         Candidate c3 = new Candidate(e1, p3);
-        Candidate c4 = new Candidate(e2, p4);
 
         // Add Candidates to Elections
         e1.getCandidates().add(c1);
         e1.getCandidates().add(c2);
         e1.getCandidates().add(c3);
-        e1.getCandidates().add(c4);
-
-        // Add Elections to Poll
-        poll.getElections().add(e1);
-        poll.getElections().add(e2);
     }
 
     public static void main(String[] args) {
