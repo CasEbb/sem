@@ -218,7 +218,7 @@ public class BackendTUI {
 				System.out.print("How many polling stations?  > ");
 				int numPolls = Integer.parseInt(keyboard.nextLine());
 				
-				List<Poll> polls = b.startElection(date, seats, candidates, this.nextPollNumber, numPolls);
+				List<Poll> polls = b.startElection(date, seats, candidates, this.people, this.nextPollNumber, numPolls);
 				this.polls.addAll(polls);
 				System.out.println("Election created, polling station range [" + this.nextPollNumber + " - " + (this.nextPollNumber + numPolls - 1) + "]");
 				this.nextPollNumber += numPolls;

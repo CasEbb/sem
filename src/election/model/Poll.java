@@ -18,6 +18,7 @@ public class Poll implements Serializable {
 		this.stationNumber = stationNumber;
 		this.election = election;
 		this.tallies = new ArrayList<Tally>();
+		this.suffrages = new ArrayList<Suffrage>();
 	}
 	
 	public Integer getStationNumber() {

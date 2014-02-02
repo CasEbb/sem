@@ -41,9 +41,9 @@ public class Body implements Serializable {
 		return (this.election != null);
 	}
 
-	public List<Poll> startElection(Date date, List<Seat> seats, List<Person> candidates, int numPollOffset, int numPolls) {
+	public List<Poll> startElection(Date date, List<Seat> seats, List<Person> candidates, List<Person> voters, int numPollOffset, int numPolls) {
 		if(this.election == null) {
-			Election e = new Election(this, date, seats, candidates, numPollOffset, numPolls);
+			Election e = new Election(this, date, seats, candidates, voters, numPollOffset, numPolls);
 			this.election = e;
 			return e.getPolls();
 		} else {

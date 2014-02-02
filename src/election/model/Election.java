@@ -20,7 +20,7 @@ public class Election implements Serializable {
 	
 	private Date electionDate;
 	
-	public Election(Body body, Date electionDate, List<Seat> seats, List<Person> candidates, int numPollOffset, int numPolls) {
+	public Election(Body body, Date electionDate, List<Seat> seats, List<Person> candidates, List<Person> voters, int numPollOffset, int numPolls) {
 		this.body = body;
 		this.seats = seats;
 		this.polls = new ArrayList<Poll>();
@@ -39,6 +39,10 @@ public class Election implements Serializable {
 			// stemtellers maken voor elk stembureau
 			for(Poll p : this.polls) {
 				p.getTallies().add(new Tally(p, c));
+				// stemmers voor een bureau
+				for(Person voter : voters) {
+					p.getSuffrages().add(new Suffrage(voter, p));
+				}
 			}
 		}
 	}
