@@ -1,8 +1,7 @@
 package election.model;
 
-import java.util.Date;
 import java.util.ArrayList;
-import java.util.TreeSet;
+import java.util.Date;
 import java.util.List;
 
 public class Election {
@@ -17,11 +16,10 @@ public class Election {
 	
 	private Date electionDate;
 	
-	public Election(int electionID, Date electionDate) {
+	public Election(Date electionDate) {
 		this.seats = new ArrayList<Seat>();
 		this.polls = new ArrayList<Poll>();
 		this.candidates = new ArrayList<Candidate>();
-        this.electionID = electionID;
 		this.electionDate = electionDate;
 	}
 	
@@ -43,6 +41,10 @@ public class Election {
 	
 	public Date getElectionDate() {
 		return this.electionDate;
+	}
+	
+	public void setSeats(List<Seat> seats) {
+		this.seats = seats;
 	}
 
 }

@@ -1,5 +1,6 @@
 package election.model;
 
+import java.util.Date;
 import java.util.List;
 
 public class Body {
@@ -7,6 +8,8 @@ public class Body {
 	private String name;
 	
 	private List<Seat> seats;
+	
+	private boolean inElection;
 	
 	public Body(String name, List<Seat> seats) {
 		this.name = name;
@@ -29,4 +32,14 @@ public class Body {
 		return this.name;
 	}
 
+	public Election startElection(Date date, List<Seat> seats) {
+		if(!inElection) {
+			Election e = new Election(date);
+			e.setSeats(seats);
+			return e;
+		} else {
+			return null;
+		}
+	}
+	
 }
