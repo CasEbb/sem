@@ -1,6 +1,5 @@
 package election.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Body {
@@ -9,9 +8,9 @@ public class Body {
 	
 	private List<Seat> seats;
 	
-	public Body(String name) {
+	public Body(String name, List<Seat> seats) {
 		this.name = name;
-		this.seats = new ArrayList<Seat>();
+		this.seats = seats;
 	}
 	
 	public String getName() {
@@ -20,6 +19,14 @@ public class Body {
 	
 	public List<Seat> getSeats() {
 		return this.seats;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String toString() {
+		return this.name;
 	}
 
 }

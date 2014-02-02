@@ -26,5 +26,9 @@ public class Person {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	public String toString() {
+		return "[" + this.name + ", " + this.address + "]";
+	}
 
 }

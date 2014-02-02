@@ -7,13 +7,10 @@ public class Seat {
 	
 	private String name;
 	
-	private Body body;
-	
 	private List<Term> seatHolders;
 	
-	public Seat(String name, Body body) {
+	public Seat(String name) {
 		this.name = name;
-		this.body = body;
 		this.seatHolders = new ArrayList<Term>();
 	}
 	
@@ -21,12 +18,12 @@ public class Seat {
 		return this.name;
 	}
 	
-	public Body getBody() {
-		return this.body;
-	}
-	
 	public List<Term> getSeatHolders() {
 		return this.seatHolders;
+	}
+	
+	public String toString() {
+		return this.name;
 	}
 
 }
