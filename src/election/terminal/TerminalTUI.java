@@ -1,6 +1,7 @@
 package election.terminal;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -8,6 +9,7 @@ import election.model.Candidate;
 import election.model.Poll;
 import election.model.Suffrage;
 import election.model.Tally;
+import ocsf.server.ConnectionToClient;
 
 public class TerminalTUI {
 
@@ -19,8 +21,11 @@ public class TerminalTUI {
     private int clientPort = 9667;
     private int serverPort = 9668;
 
+    private List<ConnectionToClient> clients;
+
     public TerminalTUI(String host, int pollID) {
         this.pollID = pollID;
+        clients = new ArrayList<ConnectionToClient>();
         try {
             new TerminalServer(this.serverPort, this).listen();
             new TerminalClient(host, this.clientPort, this).openConnection();
@@ -86,30 +91,16 @@ public class TerminalTUI {
         boolean result = false;
 
         try {
-            System.out.print("Enter search query   > ");
-            String query = keyboard.nextLine();
+            System.out.println("Select printer to activate: ");
 
-            List<Suffrage> suffrages = poll.getSuffrages();
-
-            for(Suffrage suffrage : suffrages) {
-                if(suffrage.getPerson().getName().equals(query)) {
-                    result = true;
-                }
+            for(int i = 0; i < clients.size(); i++) {
+                System.out.format("[%d] %d\n", i, clients.get(i).getId());
             }
 
-            if(result) {
-                System.out.println("This person is eligible to vote.");
-                System.out.println("0) *** Return");
-                System.out.print("Choice [0]: ");
-                pause();
-                return;
-            } else if(!result) {
-                System.out.println("This person is not eligible to vote.");
-                System.out.println("0) *** Return");
-                System.out.print("Choice [0]: ");
-                pause();
-                return;
-            }
+            int choice = getChoice();
+            clients.get(choice).sendToClient("activate");
+            return;
+
         } catch(Exception e) {
 
         }
