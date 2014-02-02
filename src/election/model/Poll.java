@@ -28,8 +28,4 @@ public class Poll {
         return this.suffrages;
     }
 
-    public void addElection(Election election) {
-        this.elections.add(election);
-    }
-
 }
