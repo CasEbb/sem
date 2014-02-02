@@ -10,6 +10,8 @@ public class Poll {
 	private Election election;
 
     private List<Suffrage> suffrages;
+
+    private List<Tally> tallies;
 	
 	public Poll(Integer stationNumber, Election election) {
 		this.stationNumber = stationNumber;
@@ -23,6 +25,10 @@ public class Poll {
 	public Election getElection() {
 		return this.election;
 	}
+
+    public List<Tally> getTallies() {
+        return this.tallies;
+    }
 
     public List<Suffrage> getSuffrages() {
         return this.suffrages;
