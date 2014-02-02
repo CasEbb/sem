@@ -140,6 +140,11 @@ public class BackendTUI {
 		System.out.println("3) Add seat");
 		System.out.println("4) Remove seat");
 		System.out.println("5) *** Abort");
+		if(b.inElection()) {
+			System.out.println("6) Finalize election");
+		} else {
+			System.out.println("6) Start election");
+		}
 		System.out.print("Choice [1-5]: ");
 		
 		switch(getChoice()) {
@@ -180,6 +185,13 @@ public class BackendTUI {
 		case 5:
 		default:
 			return;
+		case 6:
+			if(b.inElection()) {
+				// finalize
+			} else {
+				
+				//b.startElection(date, seats)
+			}
 		}
 	}
 	

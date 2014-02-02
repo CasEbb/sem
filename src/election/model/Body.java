@@ -9,7 +9,7 @@ public class Body {
 	
 	private List<Seat> seats;
 	
-	private boolean inElection;
+	private Election election;
 	
 	public Body(String name, List<Seat> seats) {
 		this.name = name;
@@ -28,17 +28,35 @@ public class Body {
 		this.name = name;
 	}
 	
+	public Election getElection() {
+		return this.election;
+	}
+	
 	public String toString() {
 		return this.name;
 	}
+	
+	public boolean inElection() {
+		return (this.election != null);
+	}
 
 	public Election startElection(Date date, List<Seat> seats) {
-		if(!inElection) {
-			Election e = new Election(date);
+		if(this.election == null) {
+			Election e = new Election(this, date);
 			e.setSeats(seats);
+			this.election = e;
 			return e;
 		} else {
 			return null;
+		}
+	}
+	
+	public boolean endElection() {
+		if(this.election != null) {
+			this.election = null;
+			return true;
+		} else {
+			return false;
 		}
 	}
 	

@@ -26,17 +26,17 @@ public class Seat {
 		return this.name;
 	}
 	
-	public Person getCurrentHolder() {
+	public Term getCurrentTerm() {
 		if(this.seatHolders.size() >= 1) {
-			return this.seatHolders.get(this.seatHolders.size() - 1).getPerson();
+			return this.seatHolders.get(this.seatHolders.size() - 1);
 		} else {
 			return null;
 		}
 	}
 	
-	public Person getPreviousHolder() {
+	public Term getPreviousTerm() {
 		if(this.seatHolders.size() >= 2) {
-			return this.seatHolders.get(this.seatHolders.size() - 2).getPerson();
+			return this.seatHolders.get(this.seatHolders.size() - 2);
 		} else {
 			return null;
 		}
