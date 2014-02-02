@@ -1,6 +1,8 @@
 package election.model;
 
-public class Candidate {
+import java.io.Serializable;
+
+public class Candidate implements Serializable {
 	
 	private Election election;
 	

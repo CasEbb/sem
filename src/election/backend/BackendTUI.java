@@ -1,20 +1,27 @@
 package election.backend;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 import election.model.Body;
 import election.model.Person;
+import election.model.Poll;
 import election.model.Seat;
 
 public class BackendTUI {
 	
 	private Scanner keyboard = new Scanner(System.in);
 	
-	private List<Person> people = new ArrayList<Person>();
-	private List<Body> bodies = new ArrayList<Body>();
+	public List<Person> people = new ArrayList<Person>();
+	public List<Body> bodies = new ArrayList<Body>();
+	public List<Poll> polls = new ArrayList<Poll>();
+	
+	private int nextPollNumber = 1;
 	
 	public void mainMenu() {
 		while(true) {
@@ -132,7 +139,7 @@ public class BackendTUI {
 		}
 	}
 	
-	private void bodyMenu(Body b) {
+	private void bodyMenu(Body b) throws ParseException {
 		clearScreen();
 		System.out.println("*** BODY: [" + b + "]");
 		System.out.println("1) Edit");
@@ -140,6 +147,11 @@ public class BackendTUI {
 		System.out.println("3) Add seat");
 		System.out.println("4) Remove seat");
 		System.out.println("5) *** Abort");
+		if(b.inElection()) {
+			System.out.println("6) Finalize election");
+		} else {
+			System.out.println("6) Start election");
+		}
 		System.out.print("Choice [1-5]: ");
 		
 		switch(getChoice()) {
@@ -180,6 +192,38 @@ public class BackendTUI {
 		case 5:
 		default:
 			return;
+		case 6:
+			if(b.inElection()) {
+				// finalize
+			} else {
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				System.out.print("Enter election date    > ");
+				String dateString = keyboard.nextLine();
+				Date date = format.parse(dateString);
+				
+				List<Seat> seats = new ArrayList<Seat>();
+				System.out.print("Enter seats to be elected (ids, comma-separated) > ");
+				String seatString = keyboard.nextLine();
+				for(String id : seatString.split(",")) {
+					seats.add(b.getSeats().get(Integer.parseInt(id)));
+				}
+				
+				List<Person> candidates = new ArrayList<Person>();
+				System.out.print("Enter candidates (ids, comma-separated) > ");
+				String candidateString = keyboard.nextLine();
+				for(String id : candidateString.split(",")) {
+					candidates.add(people.get(Integer.parseInt(id)));
+				}
+				
+				System.out.print("How many polling stations?  > ");
+				int numPolls = Integer.parseInt(keyboard.nextLine());
+				
+				List<Poll> polls = b.startElection(date, seats, candidates, this.nextPollNumber, numPolls);
+				this.polls.addAll(polls);
+				System.out.println("Election created, polling station range [" + this.nextPollNumber + " - " + (this.nextPollNumber + numPolls - 1) + "]");
+				this.nextPollNumber += numPolls;
+				pause();
+			}
 		}
 	}
 	
@@ -333,12 +377,13 @@ public class BackendTUI {
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// boot server
-		//Runnable serverThread = new BackendServer(9667);
-		//1new Thread(serverThread).start();
+		BackendTUI backend = new BackendTUI();
+		BackendServer server = new BackendServer(9667, backend);
+		server.listen();
 
-		new BackendTUI().mainMenu();
+		backend.mainMenu();
 	}
 
 }

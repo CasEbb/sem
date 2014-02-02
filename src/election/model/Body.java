@@ -1,12 +1,16 @@
 package election.model;
 
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
-public class Body {
+public class Body implements Serializable {
 
 	private String name;
 	
 	private List<Seat> seats;
+	
+	private Election election = null;
 	
 	public Body(String name, List<Seat> seats) {
 		this.name = name;
@@ -25,8 +29,35 @@ public class Body {
 		this.name = name;
 	}
 	
+	public Election getElection() {
+		return this.election;
+	}
+	
 	public String toString() {
 		return this.name;
 	}
+	
+	public boolean inElection() {
+		return (this.election != null);
+	}
 
+	public List<Poll> startElection(Date date, List<Seat> seats, List<Person> candidates, int numPollOffset, int numPolls) {
+		if(this.election == null) {
+			Election e = new Election(this, date, seats, candidates, numPollOffset, numPolls);
+			this.election = e;
+			return e.getPolls();
+		} else {
+			return null;
+		}
+	}
+	
+	public boolean endElection() {
+		if(this.election != null) {
+			this.election = null;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }

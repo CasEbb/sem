@@ -1,9 +1,10 @@
 package election.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Poll {
+public class Poll implements Serializable {
 
 	private Integer stationNumber;
 	
@@ -16,6 +17,7 @@ public class Poll {
 	public Poll(Integer stationNumber, Election election) {
 		this.stationNumber = stationNumber;
 		this.election = election;
+		this.tallies = new ArrayList<Tally>();
 	}
 	
 	public Integer getStationNumber() {

@@ -1,6 +1,8 @@
 package election.model;
 
-public class Suffrage {
+import java.io.Serializable;
+
+public class Suffrage implements Serializable {
 	
 	private Person person;
 	

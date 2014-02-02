@@ -1,9 +1,10 @@
 package election.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Seat {
+public class Seat implements Serializable {
 	
 	private String name;
 	
@@ -24,6 +25,22 @@ public class Seat {
 	
 	public String toString() {
 		return this.name;
+	}
+	
+	public Term getCurrentTerm() {
+		if(this.seatHolders.size() >= 1) {
+			return this.seatHolders.get(this.seatHolders.size() - 1);
+		} else {
+			return null;
+		}
+	}
+	
+	public Term getPreviousTerm() {
+		if(this.seatHolders.size() >= 2) {
+			return this.seatHolders.get(this.seatHolders.size() - 2);
+		} else {
+			return null;
+		}
 	}
 
 }
