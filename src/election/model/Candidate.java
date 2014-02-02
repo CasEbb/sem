@@ -8,6 +8,11 @@ public class Candidate implements Serializable {
 	
 	private Person person;
 	
+	/**
+	 * Maakt een kandidaat aan voor een gegeven verkiezing
+	 * @param election de verkiezing waarvoor het kandidaatschep geldt
+	 * @param person persoon die kandidaat is
+	 */
 	public Candidate(Election election, Person person) {
 		this.election = election;
 		this.person = person;
