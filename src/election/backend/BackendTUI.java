@@ -333,10 +333,10 @@ public class BackendTUI {
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// boot server
-		//Runnable serverThread = new BackendServer(9667);
-		//1new Thread(serverThread).start();
+		BackendServer server = new BackendServer(9667);
+		server.listen();
 
 		new BackendTUI().mainMenu();
 	}
