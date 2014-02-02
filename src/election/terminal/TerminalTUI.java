@@ -17,12 +17,14 @@ public class TerminalTUI {
     private int clientPort = 9667;
     private int serverPort = 9668;
 
-
-
     public TerminalTUI(String host, int pollID) {
         this.pollID = pollID;
-        new Thread(new TerminalClient(host, this.clientPort, this));
-        new Thread(new TerminalServer(this.serverPort, this));
+        try {
+            new TerminalServer(this.serverPort, this).listen();
+            new TerminalClient(host, this.clientPort, this).openConnection();
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
     }
 
     public void mainMenu() {
@@ -46,6 +48,39 @@ public class TerminalTUI {
     }
 
     private void searchPersonMenu() {
+        boolean result = false;
+
+        try {
+            System.out.print("Enter search query   > ");
+            String query = keyboard.nextLine();
+
+            List<Suffrage> suffrages = poll.getSuffrages();
+
+            for(Suffrage suffrage : suffrages) {
+                if(suffrage.getPerson().getName().equals(query)) {
+                    result = true;
+                }
+            }
+
+            if(result) {
+                System.out.println("This person is eligible to vote.");
+                System.out.println("0) *** Return");
+                System.out.print("Choice [0]: ");
+                pause();
+                return;
+            } else if(!result) {
+                System.out.println("This person is not eligible to vote.");
+                System.out.println("0) *** Return");
+                System.out.print("Choice [0]: ");
+                pause();
+                return;
+            }
+        } catch(Exception e) {
+
+        }
+    }
+
+    private void activatePrinterMenu() {
         boolean result = false;
 
         try {
@@ -110,12 +145,20 @@ public class TerminalTUI {
         this.poll = poll;
     }
 
+    protected void setTally(Candidate candidate, int votes) {
+        for (Tally t : poll.getTallies()) {
+            if(candidate.equals(t.getCandidate())) {
+                t.setVotes(votes);
+                break;
+            }
+        }
+    }
+
     protected int getPollID() {
         return this.pollID;
     }
 
     public static void main(String[] args) {
-
         new TerminalTUI(args[0], Integer.parseInt(args[1])).mainMenu();
     }
 }

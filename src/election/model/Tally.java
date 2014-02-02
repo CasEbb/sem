@@ -13,6 +13,14 @@ public class Tally {
         this.candidate = candidate;
     }
 
+    public Poll getPoll() {
+        return this.poll;
+    }
+
+    public Candidate getCandidate() {
+        return this.candidate;
+    }
+
     public void setVotes(int votes) {
         this.votes = votes;
     }
