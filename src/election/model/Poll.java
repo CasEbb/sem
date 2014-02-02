@@ -7,21 +7,21 @@ public class Poll {
 
 	private Integer stationNumber;
 	
-	private List<Election> elections;
+	private Election election;
 
     private List<Suffrage> suffrages;
 	
-	public Poll(Integer stationNumber) {
+	public Poll(Integer stationNumber, Election election) {
 		this.stationNumber = stationNumber;
-		this.elections = new ArrayList<Election>();
+		this.election = election;
 	}
 	
 	public Integer getStationNumber() {
 		return this.stationNumber;
 	}
 	
-	public List<Election> getElections() {
-		return this.elections;
+	public Election getElection() {
+		return this.election;
 	}
 
     public List<Suffrage> getSuffrages() {
