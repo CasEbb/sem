@@ -10,18 +10,31 @@ import java.io.IOException;
 public class PrinterTUI {
     private boolean isActive;
     private Poll poll;
-    private int pollID;
-    private int electionID;
 
     private int clientPort = 9778;
 
-    public PrinterTUI(String host, int pollID, int electionID) {
+    public PrinterTUI(String host) {
         this.isActive = false;
-        this.pollID = pollID;
 
-        populate();
+        try {
+            new PrinterClient(host, this.clientPort, this).openConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-        new Thread(new PrinterClient(host, this.clientPort, this));
+    protected void busy() {
+        while (!isActive) {
+            try {
+                System.in.read();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (isActive) {
+            viewCandidates();
+        }
+
     }
 
     /**
@@ -29,7 +42,6 @@ public class PrinterTUI {
      */
     protected void activate() {
         isActive = true;
-        viewCandidates();
     }
 
     /**
@@ -38,6 +50,7 @@ public class PrinterTUI {
      */
     protected void deactivate() {
         isActive = false;
+        busy();
     }
 
     /**
@@ -131,55 +144,6 @@ public class PrinterTUI {
     }
 
     /**
-     * Populate the class with test data
-     */
-    private void populate() {
-
-        // New Date for Election
-        Date d1 = new Date(2014, 01, 01);
-
-        // Create Election (ID, Date)
-        Election e1 = new Election(500, d1);
-
-        // Instantiate Poll (ID, Election)
-        poll = new Poll(5, e1);
-
-        // Create persons (Name, Address)
-        Person p1 = new Person("Cas", "Deurningerstraat");
-        Person p2 = new Person("Mathijs", "Nieuwstraat");
-        Person p3 = new Person("Remco", "De Klomp");
-        Person p4 = new Person("Libertas", "Audentis");
-        Person p5 = new Person("Est", "Audentis");
-        Person p6 = new Person("Felicitas", "Audentis");
-
-        // Suffrages (Person, Poll)
-        Suffrage su1 = new Suffrage(p1, poll);
-        Suffrage su2 = new Suffrage(p2, poll);
-        Suffrage su3 = new Suffrage(p3, poll);
-        Suffrage su4 = new Suffrage(p4, poll);
-        Suffrage su5 = new Suffrage(p5, poll);
-        Suffrage su6 = new Suffrage(p6, poll);
-
-        // Seats (Name, Body)
-        Seat se1 = new Seat("Veurzitter");
-        Seat se2 = new Seat("Secretaris");
-        Seat se3 = new Seat("Penningmeester");
-
-        // Body (Name)
-        Body b1 = new Body("Jaarclub", new ArrayList<Seat>());
-
-        // Candidates (Election, Person)
-        Candidate c1 = new Candidate(e1, p1);
-        Candidate c2 = new Candidate(e1, p2);
-        Candidate c3 = new Candidate(e1, p3);
-
-        // Add Candidates to Elections
-        e1.getCandidates().add(c1);
-        e1.getCandidates().add(c2);
-        e1.getCandidates().add(c3);
-    }
-
-    /**
      * Set method to load data
      * @param poll Poll object to get the data from
      */
@@ -189,10 +153,8 @@ public class PrinterTUI {
 
     public static void main(String[] args) {
         String host = args[0];
-        int pollID = Integer.parseInt(args[1]);
-        int electionID = Integer.parseInt(args[2]);
 
-        new PrinterTUI(host, pollID, electionID);
+        new PrinterTUI(host);
     }
 
 }
