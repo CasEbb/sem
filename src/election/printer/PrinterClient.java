@@ -1,5 +1,6 @@
 package election.printer;
 
+import election.model.Poll;
 import ocsf.client.AbstractClient;
 
 public class PrinterClient extends AbstractClient {
@@ -12,11 +13,23 @@ public class PrinterClient extends AbstractClient {
 
     }
 
+    /**
+     * Handles messages sent by the server.
+     * E.g.     - activate the printer client
+     *          - load Poll data
+     * @param msg   the message sent.
+     */
     @Override
     protected void handleMessageFromServer(Object msg) {
-        String message = (String)msg;
-        if(message.equals("activate")) {
-            tui.activate();
+        if(msg instanceof String) {
+            String message = (String)msg;
+            if(message.equals("activate")) {
+                tui.activate();
+            }
+        }
+
+        else if(msg instanceof Poll) {
+            tui.setPoll((Poll)msg);
         }
     }
 }

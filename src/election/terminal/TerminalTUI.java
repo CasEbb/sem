@@ -39,7 +39,7 @@ public class TerminalTUI {
                     searchPersonMenu();
                     break;
                 case 2:
-                    //activatePrinterMenu();
+                    activatePrinterMenu();
                     break;
                 default:
                     break;
@@ -145,10 +145,10 @@ public class TerminalTUI {
         this.poll = poll;
     }
 
-    protected void setTally(Candidate candidate, int votes) {
+    protected void setTally(Tally tally) {
         for (Tally t : poll.getTallies()) {
-            if(candidate.equals(t.getCandidate())) {
-                t.setVotes(votes);
+            if(tally.getCandidate().equals(t.getCandidate())) {
+                t.setVotes(tally.getVotes());
                 break;
             }
         }
@@ -156,6 +156,10 @@ public class TerminalTUI {
 
     protected int getPollID() {
         return this.pollID;
+    }
+
+    protected Poll getPoll() {
+        return this.poll;
     }
 
     public static void main(String[] args) {

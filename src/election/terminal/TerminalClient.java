@@ -16,10 +16,10 @@ public class TerminalClient extends AbstractClient {
 
     @Override
     protected void connectionEstablished() {
-        try{
+        try {
             sendToServer("gps " + tui.getPollID());
         }
-        catch (IOException e){}
+        catch (IOException e) { }
     }
 
     @Override

@@ -2,19 +2,14 @@ package election.printer;
 
 import election.model.*;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class PrinterTUI {
     private boolean isActive;
     private Poll poll;
-    private Election election;
     private int pollID;
     private int electionID;
 
@@ -25,7 +20,6 @@ public class PrinterTUI {
         this.pollID = pollID;
 
         populate();
-        this.election = this.poll.getElection();
 
         new Thread(new PrinterClient(host, this.clientPort, this));
     }
@@ -33,7 +27,7 @@ public class PrinterTUI {
     /**
      * Activate the vote printer.
      */
-    public void activate() {
+    protected void activate() {
         isActive = true;
         viewCandidates();
     }
@@ -42,16 +36,19 @@ public class PrinterTUI {
      * Deactivate the vote printer. This is done every time a vote is printed
      * or on command (e.g. when the election is over).
      */
-    public void deactivate() {
+    protected void deactivate() {
         isActive = false;
     }
 
+    /**
+     * View candidates for this Poll and Election
+     */
     private void viewCandidates() {
         String candidatesList = "";
         candidatesList += String.format("%d: %s\n", 0, "No vote");
-        for(int i = 1; i <= election.getCandidates().size(); i++) {
-            String name = election.getCandidates().get(i-1).getPerson().getName();
-            String address = election.getCandidates().get(i-1).getPerson().getAddress();
+        for(int i = 1; i <= this.poll.getElection().getCandidates().size(); i++) {
+            String name = this.poll.getElection().getCandidates().get(i-1).getPerson().getName();
+            String address = this.poll.getElection().getCandidates().get(i-1).getPerson().getAddress();
             candidatesList += String.format("%d: %s, %s\n", i, name, address);
         }
 
@@ -75,8 +72,8 @@ public class PrinterTUI {
             // Prepare the confirmation
             String option;
             if(candidateID != 0) {
-                String name = election.getCandidates().get(candidateID - 1).getPerson().getName();
-                String address = election.getCandidates().get(candidateID - 1).getPerson().getAddress();
+                String name = this.poll.getElection().getCandidates().get(candidateID - 1).getPerson().getName();
+                String address = this.poll.getElection().getCandidates().get(candidateID - 1).getPerson().getAddress();
                 option = String.format("%s, %s", name, address);
             }
             else {
@@ -98,7 +95,7 @@ public class PrinterTUI {
                 }
                 else if(choice.equals("y")) {
                     notConfirmed = false;
-                    printVote(candidateID);
+                    printVote(candidateID - 1);
                 }
             }
         }
@@ -113,18 +110,24 @@ public class PrinterTUI {
      * @param candidateID the ID of the vote
      */
     private void printVote(int candidateID) {
-        System.out.format("Poll: %d\n",
-                poll.getStationNumber());
-        System.out.format("Election: %d (%s)\n",
-                election.getElectionID(),
-                election.getElectionDate().toString());
+        try {
+            int[] a = new int[5];
+            for(int i = 0; i < 6; i++) { a[i] = (int)Math.random()*26; }
+            String fileName = String.format("%d%d%d%d%d%d.txt", a[0], a[1], a[2], a[3], a[4], a[5]);
 
-        String name = election.getCandidates().get(candidateID).getPerson().getName();
-        String address = election.getCandidates().get(candidateID).getPerson().getAddress();
+            PrintWriter writer = new PrintWriter(fileName, "UTF-8");
+            String name = this.poll.getElection().getCandidates().get(candidateID).getPerson().getName();
+            String address = this.poll.getElection().getCandidates().get(candidateID).getPerson().getAddress();
 
-        System.out.format("Candidate of choice: [%d] %s, %s", candidateID, name, address);
+            writer.format("Poll: %d\n", this.poll.getStationNumber());
+            writer.format("Election: %s\n", this.poll.getElection().getElectionDate().toString());
+            writer.format("Candidate of choice: [%d] %s, %s", candidateID, name, address);
+            writer.close();
 
-        deactivate();
+            deactivate();
+        }
+        catch (FileNotFoundException e) { e.printStackTrace(); }
+        catch (UnsupportedEncodingException e) { e.printStackTrace(); }
     }
 
     /**
@@ -174,6 +177,14 @@ public class PrinterTUI {
         e1.getCandidates().add(c1);
         e1.getCandidates().add(c2);
         e1.getCandidates().add(c3);
+    }
+
+    /**
+     * Set method to load data
+     * @param poll Poll object to get the data from
+     */
+    protected void setPoll(Poll poll) {
+        this.poll = poll;
     }
 
     public static void main(String[] args) {

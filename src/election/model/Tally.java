@@ -21,6 +21,10 @@ public class Tally {
         return this.candidate;
     }
 
+    public int getVotes() {
+        return this.votes;
+    }
+
     public void setVotes(int votes) {
         this.votes = votes;
     }
