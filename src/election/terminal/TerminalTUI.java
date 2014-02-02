@@ -155,6 +155,10 @@ public class TerminalTUI {
         return this.poll;
     }
 
+    protected void setClients(List<ConnectionToClient> clients) {
+        this.clients = clients;
+    }
+
     public static void main(String[] args) {
         new TerminalTUI(args[0], Integer.parseInt(args[1])).mainMenu();
     }

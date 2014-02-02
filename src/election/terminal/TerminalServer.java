@@ -31,6 +31,7 @@ public class TerminalServer extends AbstractServer {
     @Override
     protected void clientConnected(ConnectionToClient client) {
         clients.add(client);
+        tui.setClients(clients);
         try { client.sendToClient(tui.getPoll()); }
         catch (IOException e) {}
     }

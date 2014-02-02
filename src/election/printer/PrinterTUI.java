@@ -11,7 +11,7 @@ public class PrinterTUI {
     private boolean isActive;
     private Poll poll;
 
-    private int clientPort = 9778;
+    private int clientPort = 9668;
 
     public PrinterTUI(String host) {
         this.isActive = false;
