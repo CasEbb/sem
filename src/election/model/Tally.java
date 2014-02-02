@@ -1,6 +1,8 @@
 package election.model;
 
-public class Tally {
+import java.io.Serializable;
+
+public class Tally implements Serializable {
 
     private int votes;
 

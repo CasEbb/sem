@@ -1,15 +1,16 @@
 package election.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Body {
+public class Body implements Serializable {
 
 	private String name;
 	
 	private List<Seat> seats;
 	
-	private Election election;
+	private Election election = null;
 	
 	public Body(String name, List<Seat> seats) {
 		this.name = name;
@@ -40,12 +41,11 @@ public class Body {
 		return (this.election != null);
 	}
 
-	public Election startElection(Date date, List<Seat> seats) {
+	public List<Poll> startElection(Date date, List<Seat> seats, List<Person> candidates, int numPollOffset, int numPolls) {
 		if(this.election == null) {
-			Election e = new Election(this, date);
-			e.setSeats(seats);
+			Election e = new Election(this, date, seats, candidates, numPollOffset, numPolls);
 			this.election = e;
-			return e;
+			return e.getPolls();
 		} else {
 			return null;
 		}

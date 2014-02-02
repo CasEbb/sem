@@ -1,9 +1,10 @@
 package election.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Seat {
+public class Seat implements Serializable {
 	
 	private String name;
 	

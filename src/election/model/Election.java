@@ -1,11 +1,12 @@
 package election.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class Election {
+public class Election implements Serializable {
 	
 	private Body body;
 	
@@ -19,12 +20,27 @@ public class Election {
 	
 	private Date electionDate;
 	
-	public Election(Body body, Date electionDate) {
+	public Election(Body body, Date electionDate, List<Seat> seats, List<Person> candidates, int numPollOffset, int numPolls) {
 		this.body = body;
-		this.seats = new ArrayList<Seat>();
+		this.seats = seats;
 		this.polls = new ArrayList<Poll>();
 		this.candidates = new ArrayList<Candidate>();
 		this.electionDate = electionDate;
+		
+		// stembureau's scheppen
+		for(int i = numPollOffset; i < (numPollOffset + numPolls); i++) {
+			Poll p = new Poll(i, this);
+			this.polls.add(p);
+		}
+		
+		for(Person person : candidates) {
+			Candidate c = new Candidate(this, person);
+			this.candidates.add(c);
+			// stemtellers maken voor elk stembureau
+			for(Poll p : this.polls) {
+				p.getTallies().add(new Tally(p, c));
+			}
+		}
 	}
 	
 	public List<Seat> getSeats() {
@@ -45,10 +61,6 @@ public class Election {
 	
 	public Date getElectionDate() {
 		return this.electionDate;
-	}
-	
-	public void setSeats(List<Seat> seats) {
-		this.seats = seats;
 	}
 	
 	public void finalize(Map<Seat, Candidate> result) {

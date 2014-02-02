@@ -1,11 +1,13 @@
 package election.terminal;
 
-import election.model.*;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import election.model.Candidate;
+import election.model.Poll;
+import election.model.Suffrage;
+import election.model.Tally;
 
 public class TerminalTUI {
 
