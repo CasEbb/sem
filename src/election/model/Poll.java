@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Poll implements Serializable {
 
-	private Integer stationNumber;
+	private int stationNumber;
 	
 	private Election election;
 
@@ -30,7 +30,7 @@ public class Poll implements Serializable {
 	 * Geeft het volgnummer van het stembureau
 	 * @return volgnummer
 	 */
-	public Integer getStationNumber() {
+	public int getStationNumber() {
 		return this.stationNumber;
 	}
 	

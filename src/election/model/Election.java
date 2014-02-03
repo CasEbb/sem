@@ -97,7 +97,7 @@ public class Election implements Serializable {
 			Seat s = entry.getKey();
 			Candidate c = entry.getValue();
 			
-			s.getCurrentTerm().endTerm();
+			if(s.getCurrentTerm() != null) s.getCurrentTerm().endTerm();
 			s.getSeatHolders().add(new Term(c.getPerson(), s, new Date()));
 		}
 		
