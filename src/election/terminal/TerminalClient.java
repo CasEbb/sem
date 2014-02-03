@@ -5,6 +5,10 @@ import ocsf.client.AbstractClient;
 
 import java.io.IOException;
 
+/**
+ * TerminalClient is a class to connect
+ * to the Backend and fetch Polling Info.
+ */
 public class TerminalClient extends AbstractClient {
 
     private TerminalTUI tui;

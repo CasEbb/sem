@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.io.IOException;
 
+/**
+ * Printer class is used to print votes
+ * and store them in a text file.
+ */
 public class PrinterTUI {
     private boolean isActive;
     private Poll poll;

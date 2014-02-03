@@ -11,14 +11,24 @@ import election.model.Suffrage;
 import election.model.Tally;
 import ocsf.server.ConnectionToClient;
 
+/**
+ * The Terminal is used by a Polling Station to
+ * connect to the Backend, fetch the Polling Info
+ * and validate users and activate printers.
+ */
 public class TerminalTUI {
 
+    /** Scanner to scan for keyboard input */
     private Scanner keyboard = new Scanner(System.in);
 
+    /** pollID station number */
     private int pollID;
+    /** Poll model object to maintain the model */
     private Poll poll;
 
+    /** clientPort port used by Terminal to connect to Backend */
     private int clientPort = 9667;
+    /** serverPort port used by Printer to connect to Terminal */
     private int serverPort = 9668;
 
     private List<ConnectionToClient> clients;
@@ -34,6 +44,9 @@ public class TerminalTUI {
         }
     }
 
+    /**
+     * Main menu of the Terminal.
+     */
     public void mainMenu() {
         while(true) {
             clearScreen();
@@ -54,6 +67,9 @@ public class TerminalTUI {
         }
     }
 
+    /**
+     * Shows the menu to search for a person.
+     */
     private void searchPersonMenu() {
         boolean result = false;
 
@@ -87,6 +103,9 @@ public class TerminalTUI {
         }
     }
 
+    /**
+     * Show the menu to activate a printer.
+     */
     private void activatePrinterMenu() {
         boolean result = false;
 
@@ -106,6 +125,10 @@ public class TerminalTUI {
         }
     }
 
+    /**
+     * Function to determine a choice from a user.
+     * @return choice integer value which represents a choice
+     */
     private int getChoice() {
         Scanner line = new Scanner(keyboard.nextLine());
         int result;
@@ -120,6 +143,9 @@ public class TerminalTUI {
         return result;
     }
 
+    /**
+     * Clears the screen to allow new out-/input.
+     */
     private void clearScreen() {
         for(int i = 0; i < 25; i++) { System.out.println(); }
         System.out.println("          OOTUMLIA ELECTION MANAGEMENT        ");
@@ -127,6 +153,9 @@ public class TerminalTUI {
         System.out.println("______________________________________________");
     }
 
+    /**
+     * Keep the system running, but allow input.
+     */
     private void pause() {
         try {
             System.in.read();
@@ -134,10 +163,19 @@ public class TerminalTUI {
         }
     }
 
+    /**
+     * Setter for Poll model object.
+     * @param poll Poll received from Backend
+     */
     protected void setPoll(Poll poll) {
         this.poll = poll;
     }
 
+    /**
+     * Non-used function to count all the votes on
+     * a candidate.
+     * @param tally Tally model object with the new votes value.
+     */
     protected void setTally(Tally tally) {
         for (Tally t : poll.getTallies()) {
             if(tally.getCandidate().equals(t.getCandidate())) {
@@ -147,14 +185,27 @@ public class TerminalTUI {
         }
     }
 
+    /**
+     * Getter for Poll station number
+     * @return pollID station number
+     */
     protected int getPollID() {
         return this.pollID;
     }
 
+    /**
+     * Gets the Poll model maintained by Terminal.
+     * @return Poll Poll model object.
+     */
     protected Poll getPoll() {
         return this.poll;
     }
 
+    /**
+     * Sets a list of clients.
+     * @param clients List of ConnectionToClient to display for
+     *                activate printer.
+     */
     protected void setClients(List<ConnectionToClient> clients) {
         this.clients = clients;
     }

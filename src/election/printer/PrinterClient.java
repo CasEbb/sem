@@ -3,6 +3,10 @@ package election.printer;
 import election.model.Poll;
 import ocsf.client.AbstractClient;
 
+/**
+ * PrinterClient class allows the Printer to connect
+ * to the Terminal in the Polling Station.
+ */
 public class PrinterClient extends AbstractClient {
 
     PrinterTUI tui;

@@ -7,6 +7,10 @@ import ocsf.server.ConnectionToClient;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * TerminalServer class is used to allow
+ * printers to connect to the Terminal.
+ */
 public class TerminalServer extends AbstractServer {
 
     /** The TUI */
