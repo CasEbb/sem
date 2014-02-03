@@ -17,6 +17,10 @@ public class PrinterTUI {
 
     private int clientPort = 9668;
 
+    /**
+     * Initializes a new PrinterTUI.
+     * @param host the host to connect to.
+     */
     public PrinterTUI(String host) {
         this.isActive = false;
 

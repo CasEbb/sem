@@ -13,16 +13,29 @@ import election.model.Person;
 import election.model.Poll;
 import election.model.Seat;
 
+/**
+ * The Backend maintains all the information
+ * for multiple elections, and has the options
+ * to add, modify and delete elections, bodies
+ * and persons.
+ */
 public class BackendTUI {
-	
+
+    /** Scanner to scan for user input */
 	private Scanner keyboard = new Scanner(System.in);
-	
+
+    /** List of Person objects */
 	public List<Person> people = new ArrayList<Person>();
+    /** List of Body objects */
 	public List<Body> bodies = new ArrayList<Body>();
+    /** List of Poll objects */
 	public List<Poll> polls = new ArrayList<Poll>();
 	
 	private int nextPollNumber = 1;
-	
+
+    /**
+     * Shows the main menu of the Backend.
+     */
 	public void mainMenu() {
 		while(true) {
 			clearScreen();
@@ -42,7 +55,10 @@ public class BackendTUI {
 			}
 		}
 	}
-	
+
+    /**
+     * Shows the "Manage Bodies" menu.
+     */
 	private void bodiesMenu() {
 		while(true) {
 			clearScreen();
@@ -65,7 +81,10 @@ public class BackendTUI {
 			}
 		}
 	}
-	
+
+    /**
+     * Creates the option to add a Body.
+     */
 	private void addBodyMenu() {
 		try {
 			System.out.print("Enter name              > ");
@@ -97,7 +116,10 @@ public class BackendTUI {
 			return;
 		}
 	}
-	
+
+    /**
+     * Class to search for an existing Body.
+     */
 	private void searchBodyMenu() {
 		List<Body> results = new ArrayList<Body>();
 		
@@ -138,7 +160,12 @@ public class BackendTUI {
 			
 		}
 	}
-	
+
+    /**
+     * Options menu for a specific Body.
+     * @param b selected Body
+     * @throws ParseException
+     */
 	private void bodyMenu(Body b) throws ParseException {
 		clearScreen();
 		System.out.println("*** BODY: [" + b + "]");
@@ -226,7 +253,10 @@ public class BackendTUI {
 			}
 		}
 	}
-	
+
+    /**
+     * Shows the menu to "Manage People".
+     */
 	private void peopleMenu() {
 		while(true) {
 			clearScreen();
@@ -249,7 +279,10 @@ public class BackendTUI {
 			}
 		}
 	}
-	
+
+    /**
+     * Creates the option to add a Person.
+     */
 	private void addPersonMenu() {
 		try {
 			System.out.print("Enter name      > ");
@@ -273,7 +306,10 @@ public class BackendTUI {
 			return;
 		}
 	}
-	
+
+    /**
+     * Search for a Person.
+     */
 	private void searchPersonMenu() {
 		List<Person> results = new ArrayList<Person>();
 		
@@ -314,7 +350,11 @@ public class BackendTUI {
 			
 		}
 	}
-	
+
+    /**
+     * Options menu for a specific Person.
+     * @param p selected Person
+     */
 	private void personMenu(Person p) {
 		clearScreen();
 		System.out.println("*** PERSON: [" + p.getName() + ", " + p.getAddress() + "]");
@@ -349,13 +389,20 @@ public class BackendTUI {
 		}
 	}
 
+    /**
+     * Clears the screen and prints the title bar.
+     */
 	private void clearScreen() {
 		for(int i = 0; i < 25; i++) { System.out.println(); }
 		System.out.println("          OOTUMLIA ELECTION MANAGEMENT        ");
 		System.out.println("         SERVER ADMINISTRATION TERMINAL       ");
 		System.out.println("______________________________________________");
 	}
-	
+
+    /**
+     * Waits for the user to make a choice.
+     * @return choice the integer the user chose
+     */
 	private int getChoice() {
 		Scanner line = new Scanner(keyboard.nextLine());
 		int result;

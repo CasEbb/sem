@@ -33,6 +33,11 @@ public class TerminalTUI {
 
     private List<ConnectionToClient> clients;
 
+    /**
+     * Initializes a new TerminalTUI.
+     * @param host the Backend host to connect to.
+     * @param pollID the id of this polling station.
+     */
     public TerminalTUI(String host, int pollID) {
         this.pollID = pollID;
         clients = new ArrayList<ConnectionToClient>();

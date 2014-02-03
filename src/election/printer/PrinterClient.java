@@ -9,8 +9,15 @@ import ocsf.client.AbstractClient;
  */
 public class PrinterClient extends AbstractClient {
 
+    /** PrinterTUI object to maintain */
     PrinterTUI tui;
 
+    /**
+     * Initializes a PrinterClient object.
+     * @param host the host to connect to.
+     * @param port the port to connect on.
+     * @param tui PrinterTUI object to maintain.
+     */
     public PrinterClient(String host, int port, PrinterTUI tui) {
         super(host, port);
         this.tui = tui;

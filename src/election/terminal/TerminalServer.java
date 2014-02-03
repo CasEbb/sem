@@ -20,8 +20,8 @@ public class TerminalServer extends AbstractServer {
 
     /**
      * TerminalServer class is used to create a connection for printers
-     * @param port
-     * @param tui
+     * @param port the port to connect on.
+     * @param tui the TerminalTUI to maintain.
      */
     public TerminalServer(int port, TerminalTUI tui) {
         super(port);
